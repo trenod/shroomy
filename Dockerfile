@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Add python-dotenv to your requirements.txt or install it separately
 RUN pip install --no-cache-dir python-dotenv
-
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 # Use the official Node.js base image
 FROM node:16 as node-base
 
