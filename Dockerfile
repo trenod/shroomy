@@ -13,8 +13,11 @@ ENV PYTHONPATH /app/backend
 RUN apt-get update && apt-get install -y gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY requirements.txt ./
+COPY /requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Add python-dotenv to your requirements.txt or install it separately
+RUN pip install --no-cache-dir python-dotenv
 
 # Use the official Node.js base image
 FROM node:16 as node-base
@@ -40,6 +43,9 @@ WORKDIR /app/backend
 
 # Copy the backend source code
 COPY app/backend/ ./
+
+# Copy the .env file
+COPY .env ./
 
 # Copy built frontend static files
 COPY --from=node-base /app/frontend/build /app/backend/staticfiles
