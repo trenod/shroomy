@@ -1,54 +1,57 @@
-# ---- Python Base ----
-FROM python:3.9-slim-buster as python-base
+# Use the official Node.js image as the base for the frontend build
+FROM node:latest as frontend-build
 
-WORKDIR /app/backend
-
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONPATH /app/backend
-
-RUN apt-get update && \
-    apt-get install -y gcc libpq-dev && \
-    apt-get install -y libjpeg62-turbo-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev libtiff-dev tk-dev libharfbuzz-dev libfribidi-dev && \
-    rm -rf /var/lib/apt/lists/*
-
-COPY /requirements.txt /app/
-RUN pip install --no-cache-dir -r /app/requirements.txt
-RUN pip install --no-cache-dir python-dotenv
-
-# ---- Node Base ----
-FROM node:16 as node-base
-
+# Set the working directory
 WORKDIR /app/frontend
 
+# Copy package.json and package-lock.json to the container
 COPY app/frontend/package*.json ./
-RUN npm ci
 
-COPY app/frontend/ ./
+# Install NPM dependencies
+RUN npm install
+
+# Copy the frontend source code
+COPY app/frontend/ .
+
+# Build the frontend
 RUN npm run build
 
-# ---- Final Stage ----
-FROM python-base
+# Use the official Python image as the base for the backend build
+FROM python:3.9 as backend-build
 
+# Set the working directory
 WORKDIR /app/backend
+COPY .env /app/
+# Copy the requirements file to the container
+COPY requirements.txt .
 
-COPY app/backend/ ./
-COPY /.env /app/
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY --from=node-base /app/frontend/build /app/frontend/build
+# Copy the backend source code
+COPY app/backend/ .
 
-# Install Nginx
-RUN apt-get update && \
-    apt-get install -y nginx && \
-    rm -rf /var/lib/apt/lists/
-
-# Copy Nginx configuration
-COPY app/nginx.conf /etc/nginx/sites-available/default
-
-RUN pip check torchvision
-RUN pip check torch
-# Expose the port on which the Django app will run
+# Expose the backend port
 EXPOSE 8000
 
-# Run Nginx and Gunicorn
-CMD ["sh", "-c", "nginx && gunicorn --bind 0.0.0.0:8000 mushroomApp.wsgi:application"]
+# Use the official Nginx image as the base for the final image
+FROM nginx:latest
+
+# Remove the default Nginx configuration file
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy the custom Nginx configuration file
+COPY app/nginx.conf /etc/nginx/conf.d
+
+# Copy the frontend build artifacts from the frontend-build stage
+COPY --from=frontend-build /app/frontend/build /usr/share/nginx/html
+
+# Copy the backend build artifacts from the backend-build stage
+COPY --from=backend-build /app/backend /app/backend
+
+# Set environment variables
+ENV DJANGO_SETTINGS_MODULE=app.settings
+ENV PYTHONUNBUFFERED=1
+
+# Start the backend service and Nginx
+CMD ["sh", "-c", "cd /app/backend && gunicorn app.wsgi:application --bind 0.0.0.0:8000 & nginx -g 'daemon off;'"]
