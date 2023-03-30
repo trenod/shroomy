@@ -14,16 +14,20 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env','config', 'db.json')
+#dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env','config', 'db.json')
 
-import json
-with open(dotenv_path) as f:
-    data = json.load(f)
+load_dotenv()
 
-DATABASE_HOST = data['DATABASE_HOST']
-DATABASE_NAME = data['DB_NAME']
-DATABASE_USER = data['DB_USER']
-DATABASE_PASSWORD = data['DB_PASSWORD']
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': os.getenv('MONGO_DB_NAME'),
+        'HOST': os.getenv('MONGO_HOST'),
+        'PORT': os.getenv('MONGO_PORT'),
+        'USERNAME': os.getenv('MONGO_USERNAME'),
+        'PASSWORD': os.getenv('MONGO_PASSWORD'),
+    }
+}
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,7 +39,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = data['SECRET_KEY']
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -118,20 +122,6 @@ WSGI_APPLICATION = 'mushroomApp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        "CLIENT": {
-           "name": DATABASE_NAME,
-           "host": DATABASE_HOST,
-           "username": DATABASE_USER,
-           "password": DATABASE_PASSWORD,
-           "authMechanism": "SCRAM-SHA-1",
-        }, 
-    }
-}
 
 
 # Password validation
