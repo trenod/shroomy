@@ -4,7 +4,7 @@ steps:
   args: ['build']
   env:
   - 'COMPOSE_PROJECT_NAME=friendly-access-380113'
-  - 'COMPOSE_FILE=docker-compose.yml'
+  - 'COMPOSE_FILE=/app/docker-compose.yml'
   volumes:
   - '/var/run/docker.sock:/var/run/docker.sock'
 
