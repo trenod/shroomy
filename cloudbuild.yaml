@@ -1,13 +1,29 @@
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-  - 'run'
-  - 'deploy'
-  - 'cloudrunservice'
-  - '--image'
-  - 'us-docker.pkg.dev/cloudrun/container/app'
-  - '--region'
-  - 'us-central1'
-  - '--platform'
-  - 'managed'
-  - '--allow-unauthenticated'
+# Build and run docker-compose
+- name: 'docker/compose:1.29.2'
+  args: ['build']
+  env:
+  - 'COMPOSE_PROJECT_NAME=friendly-access-380113'
+  - 'COMPOSE_FILE=docker-compose.yml'
+  volumes:
+  - '/var/run/docker.sock:/var/run/docker.sock'
+
+# Push the Django backend image to Google Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'app-backend-1', 'gcr.io/$PROJECT_ID/app-backend-1']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/app-backend-1']
+
+# Push the React frontend image to Google Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'app-frontend-1', 'gcr.io/$PROJECT_ID/app-frontend-1']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/app-frontend-1']
+
+# Push the Nginx image to Google Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['pull', 'nginx:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'nginx:latest', 'gcr.io/$PROJECT_ID/app-nginx-1']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/app-nginx-1']
