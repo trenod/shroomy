@@ -21,7 +21,7 @@ router = routers.DefaultRouter()
 router.register(r'mushrooms', MushroomViewSet)
 
 urlpatterns = [
-    path('/mushrooms/', MushroomViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('mushrooms/', MushroomViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('mushrooms/<int:pk>/', MushroomViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
     path('mushrooms/search/', search_mushrooms, name='search_mushrooms'),
     path('mushrooms/predict/', predict_mushroom, name='predict_mushroom'),
