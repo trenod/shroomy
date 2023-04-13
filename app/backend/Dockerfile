@@ -7,6 +7,7 @@ COPY .env /backend/.env
 RUN python -m pip install --upgrade pip
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN pip3 install -r requirements.txt
+RUN pip install --no-cache-dir gunicorn
 RUN pip check torchvision
 RUN pip check torch
 EXPOSE 8000
