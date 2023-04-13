@@ -1,13 +1,14 @@
 version: '3.3'
-
 services:
   backend:
     build:
       context: ./backend
     command: gunicorn mushroomApp.wsgi --bind 0.0.0.0:8000
+    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:web
     ports:
       - "8000:8000"
   frontend:
+    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:frontend
     build:
       context: ./frontend
     volumes:
