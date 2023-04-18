@@ -20,10 +20,19 @@ import json
 with open(dotenv_path) as f:
     data = json.load(f)
 
-DATABASE_HOST = data['DATABASE_HOST']
-DATABASE_NAME = data['DB_NAME']
-DATABASE_USER = data['DB_USER']
-DATABASE_PASSWORD = data['DB_PASSWORD']
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'CLIENT': {
+            'name': os.getenv('MONGO_DB_NAME'),
+            'host': os.getenv('MONGO_HOST'),
+            'port': os.getenv('MONGO_PORT'),
+            'username': os.getenv('MONGO_USERNAME'),
+            'password': os.getenv('MONGO_PASSWORD'),
+            "authMechanism": "SCRAM-SHA-1",
+        }
+    }
+}
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,7 +50,7 @@ SECRET_KEY = data['SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+#'127.0.0.1', 'localhost','0.0.0.0', 'ec2-13-49-180-205.eu-north-1.compute.amazonaws.com'
 
 # Application definition
 
@@ -120,19 +129,6 @@ WSGI_APPLICATION = 'mushroomApp.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        "CLIENT": {
-           "name": DATABASE_NAME,
-           "host": DATABASE_HOST,
-           "username": DATABASE_USER,
-           "password": DATABASE_PASSWORD,
-           "authMechanism": "SCRAM-SHA-1",
-        }, 
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -151,6 +147,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
