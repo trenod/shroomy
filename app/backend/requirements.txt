@@ -19,6 +19,7 @@ fastdownload==0.0.7
 fastprogress==1.0.3
 filelock==3.11.0
 fonttools==4.39.3
+huggingface-hub==0.13.4
 idna==3.4
 Jinja2==3.1.2
 joblib==1.2.0
@@ -56,6 +57,7 @@ srsly==2.4.6
 sympy==1.11.1
 thinc==8.1.9
 threadpoolctl==3.1.0
+timm==0.6.13
 torch==2.0.0
 torchvision==0.15.1
 tqdm==4.65.0
