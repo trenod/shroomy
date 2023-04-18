@@ -69,7 +69,7 @@ const fallback_prediction: IMusroom = {
   comment: "",
   recipe: null,
   image_urls: "['/matblekksopp.png']",
-  list_mislabel: [],
+  list_mislabel: "[]",
   description: "Soppen finnes ikke i databasen, har du oppdaget en ny soppart?",
   id: -1,
   s_name: "Soppenis Finnisikke",
