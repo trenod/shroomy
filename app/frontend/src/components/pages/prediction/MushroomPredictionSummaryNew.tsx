@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { IPrediction } from "../../../api/interfaces";
+import { IMusroom, IPrediction } from "../../../api/interfaces";
+import { mushroomAPI } from "../../../api/mushroomAPI";
+import { debugMushroom } from "../../../constants";
 import { palette } from "../../../palette";
 import {
   StyledWrapper,
@@ -13,16 +15,19 @@ interface MushroomPredictionProps {
   predictions: IPrediction[];
 }
 
-const MushroomPredictionSummary: React.FC<MushroomPredictionProps> = ({
+const MushroomPredictionSummaryNew: React.FC<MushroomPredictionProps> = ({
   predictions,
 }) => {
-  //not used
-  const [expandData, setExpandData] = useState<boolean>(false);
+  //const [expandData, setExpandData] = useState<boolean>(false);
+  const [mushroom, setMushroom] = useState<IMusroom | null>(null);
 
-  //not used
-  const handleExpand = () => {
-    setExpandData(!expandData);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await mushroomAPI.getMushroomsById(5);
+      setMushroom(debugMushroom);
+    };
+    fetchData();
+  }, []);
 
   const SummaryObject = (obj: { prediction: IPrediction }) => {
     const mushroom = obj.prediction;
@@ -60,7 +65,7 @@ const MushroomPredictionSummary: React.FC<MushroomPredictionProps> = ({
     );
   };
 
-  return expandData ? (
+  return (
     <div
       style={{
         display: "flex",
@@ -70,7 +75,6 @@ const MushroomPredictionSummary: React.FC<MushroomPredictionProps> = ({
         top: "100px",
         left: 0,
       }}
-      onClick={handleExpand}
     >
       <StyledWrapper>
         <div style={{ fontWeight: 700, fontSize: "20px" }}>
@@ -81,12 +85,12 @@ const MushroomPredictionSummary: React.FC<MushroomPredictionProps> = ({
         })}
       </StyledWrapper>
     </div>
-  ) : (
-    <StyledChart onClick={handleExpand} src="chart.png" />
   );
 };
 
-export default MushroomPredictionSummary;
+export default MushroomPredictionSummaryNew;
+
+//<StyledChart onClick={handleExpand} src="chart.png" />
 
 export const StyledChart = styled.img`
   height: 80px;

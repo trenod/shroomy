@@ -1,4 +1,4 @@
-export const mushroomServerURL = "http://127.0.0.1:8000";
+export const mushroomServerURL = "http://localhost:8000";
 export const frontEndServerURL = "http://localhost:3000";
 
 export const mushroomFetch = async ({
@@ -18,7 +18,8 @@ export const mushroomFetch = async ({
   const searchParams = new URLSearchParams(qs);
   const url = `${mushroomServerURL}/${endpoint}`;
   const response = await fetch(
-    `${url}${searchParams.values.length == 0 ? "/" : "?"
+    `${url}${
+      searchParams.values.length == 0 ? "/" : "?"
     }${searchParams.toString()}`,
     {
       method: method,

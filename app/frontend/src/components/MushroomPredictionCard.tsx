@@ -1,28 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { IMusroom, IPrediction } from "../api/interfaces";
-import { palette } from "../palette";
 import {
-  StyledHeader,
-  StyledIconImg,
-  StyledMushroomImg,
-  StyledWrapper,
-} from "./MushroomCard";
+  IMusroom,
+  IPredictionIcludingFallbackId,
+  NSNF_NORM,
+} from "../api/interfaces";
+import { mushroomAPI } from "../api/mushroomAPI";
+import { palette } from "../palette";
+import MushroomCard from "./MushroomCard";
 
 interface MushroomPredictionProps {
-  prediction: IPrediction;
+  prediction: IPredictionIcludingFallbackId;
 }
 
 const MushroomPredictionCard: React.FC<MushroomPredictionProps> = ({
   prediction,
 }) => {
-  const [expandData, setExpandData] = useState<boolean>(false);
+  const [mushroom, setMushroom] = useState<IMusroom | null>(null);
 
-  const handleTakePhoto = () => {
-    setExpandData(!expandData);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      if (prediction.predicted_id > 0) {
+        const data = await mushroomAPI.getMushroomsById(
+          prediction.predicted_id
+        );
+        setMushroom(data);
+      } else {
+        setMushroom(fallback_prediction);
+      }
+    };
+    fetchData();
+  }, []);
 
-  const mushroom = prediction.prediction[0];
   const predStr = Number(prediction.probability * 100).toFixed(3);
 
   return (
@@ -33,38 +42,7 @@ const MushroomPredictionCard: React.FC<MushroomPredictionProps> = ({
         {prediction.name} <span>{predStr}</span>
         {`%`}
       </StyledNameDiv>
-      <StyledWrapper>
-        <StyledHeader>
-          {mushroom.name}{" "}
-          {mushroom.edible && (
-            <StyledIconImg src={`/edible-icon.png`} alt={"edible"} />
-          )}
-          {mushroom.poisonous && (
-            <StyledIconImg src={`/poisonous-icon.png`} alt={"poisonous"} />
-          )}
-        </StyledHeader>
-        <StyledMushroomImg
-          src={mushroom.image_url}
-          alt={mushroom.name}
-          onClick={handleTakePhoto}
-        />
-        {expandData && (
-          <>
-            <p>
-              <strong>Area:</strong> {mushroom.area}
-            </p>
-            <p>
-              <strong>Description:</strong> {mushroom.description}
-            </p>
-            <p>
-              <strong>Edible:</strong> {mushroom.edible ? "Yes" : "No"}
-            </p>
-            <p>
-              <strong>Poisonous:</strong> {mushroom.poisonous ? "Yes" : "No"}
-            </p>
-          </>
-        )}
-      </StyledWrapper>
+      <MushroomCard mushroom={mushroom} />
     </div>
   );
 };
@@ -86,3 +64,14 @@ const StyledNameDiv = styled.div`
     font-weight: 800;
   }
 `;
+const fallback_prediction: IMusroom = {
+  nsnf_norm: NSNF_NORM.giftig,
+  comment: "",
+  recipe: null,
+  image_urls: "['/matblekksopp.png']",
+  list_mislabel: [],
+  description: "Soppen finnes ikke i databasen, har du oppdaget en ny soppart?",
+  id: -1,
+  s_name: "Soppenis Finnisikke",
+  name: "Finnes ikke i databasen",
+};

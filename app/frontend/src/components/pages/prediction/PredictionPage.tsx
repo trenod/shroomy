@@ -1,7 +1,13 @@
 import queryString from "query-string";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { IMusroom, IPrediction } from "../../../api/interfaces";
+import {
+  IMusroom,
+  IPrediction,
+  IPredictionIcludingFallbackId,
+  NSNF_NORM,
+} from "../../../api/interfaces";
+import { mushroomAPI } from "../../../api/mushroomAPI";
 import MushroomPredictionCard from "../../MushroomPredictionCard";
 import MushroomPredictionSummary from "./MushroomPredictionSummary";
 
@@ -13,14 +19,14 @@ const PredictionPage: React.FC = () => {
     <CardsWrapper>
       <MushroomPredictionSummary predictions={predictions} />
       {predictions.map((prediction, index) => {
-        if (prediction.prediction.length == 0) {
-          prediction.prediction.push(fallback_prediction);
+        if (prediction.predicted_id == null) {
+          prediction.predicted_id = -1;
         }
 
         return (
           <div key={`mpc_wrapper_${index}}`}>
             <MushroomPredictionCard
-              prediction={prediction as any}
+              prediction={prediction as IPredictionIcludingFallbackId}
               key={`mpc_${index}}`}
             />
             <br />
@@ -43,32 +49,3 @@ const CardsWrapper = styled.div`
     margin: 4px;
   }
 `;
-
-const _DEBUG_prediction = {
-  prediction: [
-    {
-      area: "Norge",
-      description:
-        "Kantarell har gul, traktformet hatt, nedløpende folder og god kantarellukt. Har samme gulfarge på undersiden som oversiden. Avrundet stilk.",
-      edible: true,
-      id: 32,
-      image_url:
-        "https://media.snl.no/media/116599/standard_compressed_kantarell_37810.jpg",
-      latin_name: "Cantharellus cibarius",
-      name: "Kantarell",
-      poisonous: false,
-    },
-  ],
-  probability: 0.5896577835083008,
-};
-
-const fallback_prediction = {
-  area: "N/A",
-  description: "Soppen finnes ikke i databasen, har du oppdaget en ny soppart?",
-  edible: false,
-  id: -1,
-  image_url: "/matblekksopp.png",
-  latin_name: "Soppenis Finnisikke",
-  name: "Finnes ikke i databasen",
-  poisonous: false,
-};
