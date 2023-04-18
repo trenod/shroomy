@@ -12,13 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-
-dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env','config', 'db.json')
-
-import json
-with open(dotenv_path) as f:
-    data = json.load(f)
 
 DATABASES = {
     'default': {
@@ -29,7 +22,6 @@ DATABASES = {
             'port': os.getenv('MONGO_PORT'),
             'username': os.getenv('MONGO_USERNAME'),
             'password': os.getenv('MONGO_PASSWORD'),
-            "authMechanism": "SCRAM-SHA-1",
         }
     }
 }
@@ -44,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = data['SECRET_KEY']
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
