@@ -9,12 +9,7 @@ from fastai.vision.all import load_learner
 import numpy as np
 import cv2
 
-# Code for fixing PosixPath error on Windows
-#import pathlib
-#temp = pathlib.PosixPath
-#pathlib.PosixPath = pathlib.WindowsPath
-
-learn = load_learner("./model/model_v1.pkl")
+learn = load_learner("./model/model_v2_convnext.pkl")
 labels = learn.dls.vocab
 
 # Create your views here.
