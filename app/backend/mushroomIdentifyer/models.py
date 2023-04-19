@@ -11,5 +11,5 @@ class Mushroom(models.Model):
     comment = models.TextField(default="No data")
     description = models.TextField(default="No data")
     recipe = models.TextField(default="No data")
-    image_urls = models.URLField(default="No data")
-    list_mislabel = models.TextField(default="No data")
+    image_urls = models.JSONField(default=list)
+    list_mislabel = models.JSONField(default=list)
