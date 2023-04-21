@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Use the official Python base image
 FROM python:3.10-buster
 
