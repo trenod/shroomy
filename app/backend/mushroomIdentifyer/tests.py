@@ -6,10 +6,37 @@ from .serializers import MushroomSerializer
 
 class MushroomTests(APITestCase):
     def setUp(self):
-        self.mushroom1 = Mushroom.objects.create(name='Button Mushroom', edible=True, poisonous=False, latin_name='Agaricus bisporus')
-        self.mushroom2 = Mushroom.objects.create(name='Fly Agaric', edible=False, poisonous=True, latin_name='Amanita muscaria')
-        self.mushroom3 = Mushroom.objects.create(name='Shiitake', edible=True, poisonous=False, latin_name='Lentinula edodes')
-
+        self.mushroom1 = Mushroom.objects.create(
+            name='Button Mushroom',
+            s_name='Agaricus bisporus',
+            nsnf_norm='Spiselig',
+            comment='This is a comment',
+            description='This is a description',
+            recipe='This is a recipe',
+            image_urls=['https://www.google.com'],
+            list_mislabel='This is a list_mislabel'
+        )
+        self.mushroom2 = Mushroom.objects.create(
+            name='Test Mushroom',
+            s_name='Testicus bisporus',
+            nsnf_norm='Different value',
+            comment='This is a comment',
+            description='This is a description',
+            recipe='This is a recipe',
+            image_urls=['https://www.google.com'],
+            list_mislabel='This is a list_mislabel'
+        )
+        self.mushroom3 = Mushroom.objects.create(
+            name='Test2 Mushroom',
+            s_name='Abisporus',
+            nsnf_norm='Giftig',
+            comment='This is a comment',
+            description='This is a description',
+            recipe='This is a recipe',
+            image_urls=['https://www.google.com'],
+            list_mislabel='This is a list_mislabel'
+        )
+        
     def test_get_mushrooms(self):
         url = 'localhost:8000/mushrooms/'
         response = self.client.get(url)

@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
+model/model_v2_convnext.pkl
 
 .env
 # Distribution / packaging
