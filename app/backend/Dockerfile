@@ -1,6 +1,9 @@
 #!/bin/bash
 # Use the official Python base image
-FROM python:3.10-buster
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get install -y curl
 
 # Set the working directory
 WORKDIR /backend
