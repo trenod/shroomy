@@ -21,8 +21,7 @@ RUN python -m pip install --upgrade pip && \
     pip3 install -r requirements.txt && \
     pip install --no-cache-dir gunicorn pillow opencv-python imageio
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/gunicorn
+
 
 
 # Expose the required port
