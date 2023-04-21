@@ -1,10 +1,9 @@
 #!/bin/bash
-version: '3.4'
+version: '3.3'
 services:
   backend:
     build:
       context: ./backend
-      platform: linux/arm64
     command: gunicorn mushroomApp.wsgi --bind 0.0.0.0:8000
     image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:web
     ports:
@@ -13,7 +12,6 @@ services:
     image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:frontend
     build:
       context: ./frontend
-      platform: linux/arm64
     volumes:
       - frontend:/frontend/build
   nginx:
