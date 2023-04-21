@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Use the official Python base image
-FROM python:3.10-slim-buster
+FROM python:3.10-buster
 
 # Set the working directory
 WORKDIR /backend

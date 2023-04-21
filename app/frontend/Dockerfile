@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FROM node:15.14.0-alpine3.10
+FROM node:15.14.0-alpine3.10-buster
 WORKDIR /frontend
 COPY  . .
 RUN npm install
