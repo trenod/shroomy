@@ -1,5 +1,5 @@
 #!/bin/bash
-version: '3.3'
+version: '3.4'
 services:
   backend:
     build:
