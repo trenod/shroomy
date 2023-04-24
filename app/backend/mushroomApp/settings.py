@@ -78,6 +78,10 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://www.shroomy.no',
     'https://shroomy.no'
+    'http://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
+    'https://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
+    'http://16.16.99.230',
+    'https://116.16.99.230',
     
 ]
 
