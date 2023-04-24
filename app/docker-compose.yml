@@ -11,6 +11,8 @@ services:
     image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:frontend
     build:
       context: ./frontend
+    ports:
+      - "3000:3000"
     volumes:
       - frontend:/frontend/build
   nginx:
