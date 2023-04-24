@@ -44,7 +44,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com/","https://www.shroomy.no","localhost:8000"]
+ALLOWED_HOSTS = ["https://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com/","ec2-13-49-180-205.eu-north-1.compute.amazonaws.com","https://www.shroomy.no","localhost:8000"]
 #'127.0.0.1', 'localhost','0.0.0.0', 'ec2-13-49-180-205.eu-north-1.compute.amazonaws.com'
 
 # Application definition
