@@ -49,7 +49,8 @@ ALLOWED_HOSTS = ['ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
                 'www.shroomy.no',
                 'localhost',    
                 '0.0.0.0',    
-                '16.16.99.230',]
+                '16.16.99.230',
+                '172.31.8.100']
 
 #'127.0.0.1', 'localhost','0.0.0.0', 'ec2-13-49-180-205.eu-north-1.compute.amazonaws.com'
 
