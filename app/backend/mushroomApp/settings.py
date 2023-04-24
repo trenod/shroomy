@@ -44,7 +44,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com/","ec2-13-49-180-205.eu-north-1.compute.amazonaws.com","https://www.shroomy.no","localhost:8000","16.16.99.230","16.16.99.230:8000",'localhost','0.0.0.0',]
+ALLOWED_HOSTS = ['ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
+                'ec2-13-49-180-205.eu-north-1.compute.amazonaws.com',
+                'www.shroomy.no',
+                'localhost',    
+                '0.0.0.0',    
+                '16.16.99.230',]
+
 #'127.0.0.1', 'localhost','0.0.0.0', 'ec2-13-49-180-205.eu-north-1.compute.amazonaws.com'
 
 # Application definition
@@ -77,14 +83,13 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://www.shroomy.no',
-    'https://shroomy.no'
+    'https://shroomy.no',
     'http://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
     'https://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
     'http://16.16.99.230',
-    'https://116.16.99.230',
-    'localhost',
-    '0.0.0.0',
-    
+    'https://16.16.99.230',
+    'http://localhost',
+    'http://0.0.0.0',
 ]
 
 ROOT_URLCONF = 'mushroomApp.urls'
