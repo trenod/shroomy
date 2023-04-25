@@ -44,7 +44,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://ec2-16-170-165-99.eu-north-1.compute.amazonaws.com', '16.170.165.99',]
+ALLOWED_HOSTS = ['ec2-16-170-165-99.eu-north-1.compute.amazonaws.com','16.170.165.99']
 
 
 # Application definition
@@ -75,11 +75,16 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost',
-    'http://www.shroomy.no',
-    'http://shroomy.no',
+    'http://localhost:3000',
+    'https://www.shroomy.no',
+    'https://shroomy.no',
+    'http://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
+    'https://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
     'http://ec2-16-170-165-99.eu-north-1.compute.amazonaws.com',
+    'https://ec2-16-170-165-99.eu-north-1.compute.amazonaws.com/'
     'http://16.16.99.230',
+    'http://16.170.165.99'
+    'https://16.16.99.230',
     'http://localhost',
     'http://0.0.0.0',
 ]
