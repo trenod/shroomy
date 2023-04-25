@@ -7,8 +7,7 @@ __pycache__/
 *.so
 
 model/model_v2_convnext.pkl
-app/backend/shrooms/Scripts/*
-app/backend/shrooms/pyvenv.cfg
+app/backend/shrooms/*
 .env
 # Distribution / packaging
 .Python
