@@ -4,11 +4,11 @@ services:
     build:
       context: ./backend
     command: gunicorn mushroomApp.wsgi --bind 0.0.0.0:8000
-    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/app:web
+    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/app_2:web
     ports:
       - "8000:8000"
   frontend:
-    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/app:frontend
+    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/app_2:frontend
     build:
       context: ./frontend
       args:
