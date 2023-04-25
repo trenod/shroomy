@@ -1,8 +1,6 @@
 from djongo import models
 from bson.objectid import ObjectId
 
-# Create your models here.
-
 class Mushroom(models.Model):
     id = models.AutoField(primary_key=True, default=ObjectId)
     name = models.CharField(max_length=255, default="No data")

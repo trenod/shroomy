@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Use the official Python base image
-FROM python:3.10-slim-buster
+FROM python:3.10-buster
 
 # Set the working directory
 WORKDIR /backend
@@ -20,6 +20,8 @@ RUN python -m pip install --upgrade pip && \
     apt-get install -y ffmpeg libsm6 libxext6 libjpeg-dev zlib1g-dev libtiff-dev libopenjp2-7-dev libwebp-dev libfreetype6-dev && \
     pip3 install -r requirements.txt && \
     pip install --no-cache-dir gunicorn pillow opencv-python imageio
+
+
 
 
 # Expose the required port
