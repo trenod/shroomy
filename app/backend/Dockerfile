@@ -21,7 +21,9 @@ RUN python -m pip install --upgrade pip && \
     pip3 install -r requirements.txt && \
     pip install --no-cache-dir gunicorn pillow opencv-python imageio
 
-
+# Download file from Google Drive and save to 'model' folder
+WORKDIR /backend/model
+RUN curl -L -o model_v2_convnext.pkl 'https://drive.google.com/file/d/1QQEGgIR9bj-E_AKkBQI65fU50D4tQAof/view'
 
 
 # Expose the required port
