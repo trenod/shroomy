@@ -10,6 +10,7 @@ import {
 import { mushroomAPI } from "../../../api/mushroomAPI";
 import MushroomPredictionCard from "../../MushroomPredictionCard";
 import MushroomPredictionSummary from "./MushroomPredictionSummary";
+import MushroomPredictionSummaryNew from "./MushroomPredictionSummaryNew";
 
 const PredictionPage: React.FC = () => {
   const predictionJSON = queryString.parse(window.location.search).prediction;
@@ -18,6 +19,7 @@ const PredictionPage: React.FC = () => {
   return (
     <CardsWrapper>
       <MushroomPredictionSummary predictions={predictions} />
+      <MushroomPredictionSummaryNew predictions={predictions} />
       {predictions.map((prediction, index) => {
         if (prediction.predicted_id == null) {
           prediction.predicted_id = -1;
