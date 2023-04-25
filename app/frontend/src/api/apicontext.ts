@@ -1,7 +1,12 @@
 //export const mushroomServerURL = "http://16.170.165.99:8000";
-export const mushroomServerURL = "http://localhost:8000";
-// const frontEndServerURL = "http://16.170.165.99:3000";
-export const frontEndServerURL = "http://localhost:3000";
+//export const mushroomServerURL = "http://localhost:8000";
+//export const frontEndServerURL = "http://16.170.165.99:3000";
+//export const frontEndServerURL = "http://localhost:3000";
+
+
+export const mushroomServerURL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+export const frontEndServerURL = process.env.REACT_APP_FRONTEND_BASE_URL || "http://localhost:3000";
+console.log('mushroomServerURL:', mushroomServerURL);
 
 export const mushroomFetch = async ({
   endpoint,
@@ -21,8 +26,7 @@ export const mushroomFetch = async ({
   const searchParams = new URLSearchParams(qs);
   const url = `${mushroomServerURL}/${endpoint}`;
   const response = await fetch(
-    `${url}${
-      !!qs && Object.keys(qs).length > 0 ? "?" : "/"
+    `${url}${!!qs && Object.keys(qs).length > 0 ? "?" : "/"
     }${searchParams.toString()}`,
     {
       method: method,
