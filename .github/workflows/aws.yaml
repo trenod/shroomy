@@ -1,49 +1,30 @@
-name: Docker Image CI
+image:
+  name: docker/compose:1.29.2
+  entrypoint: [""]
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+services:
+  - docker:dind
 
-jobs:
+stages:
+  - build
 
-  build:
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        lfs: 'true'
-    - 
-      name: Build the Docker image
-      run: docker build -t ga63qes/flask-birds-classifier -f Dockerfile .
-    -
-      name: Generate Deployment Package
-      run: zip -r deploy.zip *
-    -
-      name: Get timestamp
-      uses: gerred/actions/current-time@master
-      id: current-time
-        
-    - name: Run string replace
-      uses: frabert/replace-string-action@master
-      id: format-time
-      with:
-        pattern: '[:\.]+'
-        string: "${{ steps.current-time.outputs.time }}"
-        replace-with: '-'
-        flags: 'g'
-
-    - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v14
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: birds-classifier-api
-        environment_name: Birdsclassifierapi-env
-        version_label: "birds-classifier-api-${{ steps.format-time.outputs.replaced }}"
-        region: us-east-2
-        deployment_package: deploy.zip
-view raw
+build:
+  stage: build
+  before_script:
+    - export IMAGE=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+    - export WEB_IMAGE=$IMAGE:web
+    - export NGINX_IMAGE=$IMAGE:nginx
+  script:
+    - apk add --no-cache bash
+    - chmod +x ./setup_env.sh
+    - bash ./setup_env.sh
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker pull $IMAGE:web || true
+    - docker pull $IMAGE:nginx || true
+    - docker-compose -f docker-compose.yml build
+    - docker push $IMAGE:web
+    - docker push $IMAGE:nginx
