@@ -13,7 +13,7 @@ COPY requirements.txt requirements.txt
 
 # Copy the .env file into the container
 COPY .env /backend/.env
-
+COPY . /backend
 # Upgrade pip and install required dependencies
 RUN python -m pip install --upgrade pip && \
     apt-get update && \
@@ -32,4 +32,4 @@ RUN gdown --id 1QQEGgIR9bj-E_AKkBQI65fU50D4tQAof -O /backend/model/model_v2_conv
 EXPOSE 8000
 
 # Copy the remaining files into the container
-COPY . .
+
