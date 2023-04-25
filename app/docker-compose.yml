@@ -3,7 +3,7 @@ services:
   backend:
     build:
       context: ./backend
-    command: gunicorn mushroomApp.wsgi --bind 16.170.165.99
+    command: gunicorn mushroomApp.wsgi --bind 0.0.0.0:8000
     image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:web
     ports:
       - "8000:8000"
