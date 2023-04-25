@@ -11,6 +11,9 @@ services:
     image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:frontend
     build:
       context: ./frontend
+      args:
+        REACT_APP_API_BASE_URL: http://16.170.165.99:8000
+        REACT_APP_FRONTEND_BASE_URL: http://16.170.165.99:3000
     ports:
       - "3000:3000"
     volumes:
