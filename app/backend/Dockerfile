@@ -22,9 +22,11 @@ RUN python -m pip install --upgrade pip && \
     pip install --no-cache-dir gunicorn pillow opencv-python imageio
 
 # Download file from Google Drive and save to 'model' folder
-WORKDIR /backend/model
-RUN curl -L -o model_v2_convnext.pkl 'https://drive.google.com/file/d/1QQEGgIR9bj-E_AKkBQI65fU50D4tQAof/view'
+# Install 'gdown' using pip
+RUN pip install gdown
 
+# Download the file from Google Drive and save it to a specific location
+RUN gdown --id 1QQEGgIR9bj-E_AKkBQI65fU50D4tQAof -O /backend/model/model_v2_convnext.pkl
 
 # Expose the required port
 EXPOSE 8000
