@@ -5,7 +5,7 @@ name: Deploy to Amazon ECS
 #    branches: [ "main" ]
 
 env:
-  AWS_REGION: eu-west-2
+  AWS_REGION: eu-north-1
   ECR_REPOSITORY: ci_cd
   ECS_SERVICE: my-service
   ECS_CLUSTER: my-cluster
