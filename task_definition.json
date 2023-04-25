@@ -1,17 +1,26 @@
 {
-  "executionRoleArn": "arn:aws:iam::123456789:role/EcsGaRole",
-  "containerDefinitions": [{
-    "name": "django_app",
-    "image": "dkr.ecr.eu-west-2.amazonaws.com/ci_cd",
-    "memory": "2048",
-    "essential": true,
-    "portMappings": [{
-      "containerPort": 80,
-      "protocol": "tcp"
-    }]
-  }],
+  "executionRoleArn": "arn:aws:iam::698408480519:role/django-shroomy",
+  "containerDefinitions": [
+    {
+      "name": "django_app",
+      "image": [
+        "98408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:web",
+        "98408480519.dkr.ecr.eu-north-1.amazonaws.com/django-shroomy:frontend"
+      ],
+      "memory": "2048",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  ],
   "volumes": [],
-  "requiresCompatibilities": ["FARGATE"],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
   "networkMode": "awsvpc",
   "placementConstraints": [],
   "family": "application-stack",
