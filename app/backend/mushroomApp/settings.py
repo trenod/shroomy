@@ -81,13 +81,15 @@ CORS_ORIGIN_WHITELIST = [
     'http://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
     'https://ec2-16-16-99-230.eu-north-1.compute.amazonaws.com',
     'http://ec2-16-170-165-99.eu-north-1.compute.amazonaws.com',
-    'https://ec2-16-170-165-99.eu-north-1.compute.amazonaws.com/'
+    'https://ec2-16-170-165-99.eu-north-1.compute.amazonaws.com',
     'http://16.16.99.230',
-    'http://16.170.165.99'
+    'http://16.170.165.99',
     'https://16.16.99.230',
     'http://localhost',
     'http://0.0.0.0',
 ]
+
+
 
 ROOT_URLCONF = 'mushroomApp.urls'
 
