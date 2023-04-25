@@ -45,6 +45,7 @@ const NavigationHeader: React.FC = () => {
         <StyledLinkWrapper className="linkWrapper">
           <Link to="/">Home</Link>
           <Link to="/search">Search</Link>
+          <Link to="/history">History</Link>
           <Link to={DEBUG_predictionURLWithData}>Prediction_dev</Link>
         </StyledLinkWrapper>
         <StyledLinkWrapperMobile className="linkWrapperMobile">
@@ -53,6 +54,7 @@ const NavigationHeader: React.FC = () => {
           </a>
           <Link to="/">Home</Link>
           <Link to="/search">Search</Link>
+          <Link to="/history">History</Link>
           <Link to={DEBUG_predictionURLWithData}>Prediction_dev</Link>
         </StyledLinkWrapperMobile>
       </div>
@@ -77,7 +79,7 @@ const StyledNavbar = styled.nav<{ expand: boolean; hidden?: boolean }>`
   .linkWrapperMobile {
     display: flex;
     transition: max-height 0.3s ease-in-out;
-    max-height: ${(props) => (props.expand ? "270px" : "100px")};
+    max-height: ${(props) => (props.expand ? "270px" : "75px")};
     overflow: hidden;
 
     #burger {
@@ -85,7 +87,7 @@ const StyledNavbar = styled.nav<{ expand: boolean; hidden?: boolean }>`
       font-weight: 800;
       font-size: 60px;
       transition: height 0.3s ease-in-out;
-      height: ${(props) => (props.expand ? "51px" : "100px")};
+      height: ${(props) => (props.expand ? "51px" : "75px")};
       text-align: center;
     }
   }
@@ -114,7 +116,7 @@ const StyledFontWrapper = styled.div`
 
   position: relative;
   margin-left: 8px;
-  height: 100px;
+  height: 75px;
   width: 100px;
   .l1 {
     position: absolute;
@@ -162,7 +164,7 @@ const StyledFontWrapper = styled.div`
 
   h1 {
     font-family: retro;
-    font-size: 35px;
+    font-size: 28px;
 
     transition: transform 0.3s ease-in-out;
 
@@ -183,7 +185,7 @@ const StyledLinkWrapper = styled.div`
     font-family: retro;
     color: #ffffffee;
     padding: 10px;
-    font-size: 25px;
+    font-size: 18px;
     text-shadow: -1px -1px 0 ${palette.primaryBlue},
       1px -1px 0 ${palette.primaryBlue}, -1px 1px 0 ${palette.primaryBlue},
       1px 1px 0 ${palette.primaryBlue};
@@ -222,7 +224,7 @@ const StyledLinkWrapperMobile = styled.div`
 `;
 
 const StyledShroomyImage = styled.img`
-  height: 70px;
+  height: 60px;
   width: auto;
   border-radius: 50%;
   margin-left: 18px;

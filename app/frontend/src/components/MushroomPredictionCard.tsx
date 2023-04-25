@@ -64,14 +64,26 @@ const StyledNameDiv = styled.div`
     font-weight: 800;
   }
 `;
-const fallback_prediction: IMusroom = {
+export const fallback_prediction: IMusroom = {
   nsnf_norm: NSNF_NORM.giftig,
   comment: "",
   recipe: null,
   image_urls: "['/matblekksopp.png']",
   list_mislabel: "[]",
-  description: "Soppen finnes ikke i databasen, har du oppdaget en ny soppart?",
+  description: "Soppen finnes ikke i databasen",
   id: -1,
   s_name: "Soppenis Finnisikke",
   name: "Finnes ikke i databasen",
+};
+
+export const fallback_loading: IMusroom = {
+  nsnf_norm: NSNF_NORM.giftig,
+  comment: "",
+  recipe: null,
+  image_urls: "['/matblekksopp.png']",
+  list_mislabel: "[]",
+  description: "Loading information about mushroom...",
+  id: -1,
+  s_name: "Loading",
+  name: "Loading...",
 };

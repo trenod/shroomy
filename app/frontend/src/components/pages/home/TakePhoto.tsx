@@ -5,6 +5,7 @@ import { hexToRgba, palette } from "../../../palette";
 import { useNavigate } from "react-router-dom";
 import queryString from "query-string";
 import { SMALL_SCREEN_WIDTH } from "../../../constants";
+import { savePredictionInLocalStorage } from "../history/localstorageHelper";
 
 const TakePhoto = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -105,7 +106,7 @@ const TakePhoto = () => {
       const formData = new FormData();
       formData.append("file", file);
       const res = await mushroomAPI.getPredictionFromImage(file);
-
+      savePredictionInLocalStorage(res);
       const ressy = JSON.stringify(res);
       navigate(`/prediction?prediction=${ressy}`);
     }
