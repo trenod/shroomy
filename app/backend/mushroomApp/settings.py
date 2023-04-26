@@ -44,7 +44,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'ec2-13-50-15-63.eu-north-1.compute.amazonaws.com', '13.50.15.63', "localhost"]
+    'ec2-16-16-162-101.eu-north-1.compute.amazonaws.com', '16.16.162.101', "localhost"]
 
 
 # Application definition
@@ -78,8 +78,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://www.shroomy.no',
     'https://shroomy.no',
-    'http://ec2-13-50-15-63.eu-north-1.compute.amazonaws.com',
-    'http://13.50.15.63',
+    'http://ec2-16-16-162-101.eu-north-1.compute.amazonaws.com',
+    'http://16.16.162.101',
     'http://localhost',
     'http://0.0.0.0',
 ]
