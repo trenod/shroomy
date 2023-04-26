@@ -6,6 +6,7 @@ from .serializers import MushroomSerializer
 from .models import Mushroom
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from fastai.vision.all import load_learner
+from django.db.models import Q
 import numpy as np
 import cv2
 
@@ -23,7 +24,7 @@ class MushroomViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def search_mushrooms(request):
     name = request.query_params.get('name', '')
-    mushrooms = Mushroom.objects.filter(name__icontains=name)
+    mushrooms = Mushroom.objects.filter(Q(name__icontains=name) | Q(s_name__icontains=name))
     serializer = MushroomSerializer(mushrooms, many=True)
     return Response(serializer.data)
 
