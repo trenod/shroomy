@@ -1,7 +1,11 @@
-export const mushroomServerURL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
-export const frontEndServerURL = process.env.REACT_APP_FRONTEND_BASE_URL || "http://localhost:3000";
+export const mushroomServerURL = "http://16.16.162.101:8000";
+//export const mushroomServerURL = "http://localhost:8000";
+export const frontEndServerURL = "http://16.16.162.101:3000";
+//export const frontEndServerURL = "http://localhost:3000";
 
 
+//export const mushroomServerURL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+//export const frontEndServerURL = process.env.REACT_APP_FRONTEND_BASE_URL || "http://localhost:3000";
 console.log('mushroomServerURL:', mushroomServerURL);
 
 export const mushroomFetch = async ({
