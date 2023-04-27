@@ -49,7 +49,7 @@ const MushroomPredictionCard: React.FC<MushroomPredictionProps> = ({
 
 export default MushroomPredictionCard;
 
-const StyledNameDiv = styled.div`
+export const StyledNameDiv = styled.div`
   @font-face {
     font-family: retro;
     src: url(retroFont.ttf);

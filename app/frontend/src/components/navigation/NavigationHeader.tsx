@@ -52,10 +52,21 @@ const NavigationHeader: React.FC = () => {
           <a id="burger" onClick={() => setExpand(!expand)}>
             ≡
           </a>
-          <Link to="/">Home</Link>
-          <Link to="/search">Search</Link>
-          <Link to="/history">History</Link>
-          <Link to={DEBUG_predictionURLWithData}>Prediction_dev</Link>
+          <Link onClick={() => setExpand(!expand)} to="/">
+            Hjem
+          </Link>
+          <Link onClick={() => setExpand(!expand)} to="/search">
+            Søk
+          </Link>
+          <Link onClick={() => setExpand(!expand)} to="/history">
+            Historikk
+          </Link>
+          {/*<Link
+            onClick={() => setExpand(!expand)}
+            to={DEBUG_predictionURLWithData}
+          >
+            Prediction_dev
+        </Link>*/}
         </StyledLinkWrapperMobile>
       </div>
     </StyledNavbar>
@@ -83,6 +94,7 @@ const StyledNavbar = styled.nav<{ expand: boolean; hidden?: boolean }>`
     overflow: hidden;
 
     #burger {
+      margin-top: -25px
       font-family: "Comic Sans MS", "Comic Sans";
       font-weight: 800;
       font-size: 60px;

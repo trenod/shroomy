@@ -1,27 +1,27 @@
-import {
-  mergeStyles,
-  Shimmer,
-  ShimmerElementType,
-  ThemeProvider,
-} from "@fluentui/react";
-import React, { useState } from "react";
+import { mergeStyles, ShimmerElementType } from "@fluentui/react";
+import React from "react";
 import styled from "styled-components";
-import { frontEndServerURL } from "../api/apicontext";
 import { getImageUrlsFromMushroom } from "../api/helperFunctions";
 import { FALLBACK_MUSHROOM_IMAGE_URL, IMusroom } from "../api/interfaces";
 import { hexToRgba, palette } from "../palette";
 import { nsnf_norm_icon } from "./nsnf_norm_enum_to_icon";
+import { StyledPredictionMushroomImg } from "./StyledPredictionMushroomImg";
 
 interface MushroomProps {
   mushroom: IMusroom | null;
 }
 
 const MushroomCard: React.FC<MushroomProps> = ({ mushroom }) => {
-  const [expandData, setExpandData] = useState<boolean>(false);
+  let recipeComponent = null;
 
-  const handleTakePhoto = () => {
-    setExpandData(!expandData);
-  };
+  if (mushroom && mushroom.recipe && mushroom.recipe.includes("!!")) {
+    const [header, recipe] = mushroom?.recipe.split("!!");
+    recipeComponent = (
+      <p>
+        <strong>{header}</strong> {recipe}
+      </p>
+    );
+  }
 
   return (
     <StyledWrapper>
@@ -29,28 +29,30 @@ const MushroomCard: React.FC<MushroomProps> = ({ mushroom }) => {
         {mushroom?.name || "Laster..."}{" "}
         {mushroom && nsnf_norm_icon(mushroom?.nsnf_norm as any)}
       </StyledHeader>
-      <StyledMushroomImg
+      <StyledPredictionMushroomImg
         src={
           (mushroom && getImageUrlsFromMushroom(mushroom)[0]) ||
           FALLBACK_MUSHROOM_IMAGE_URL
         }
-        alt={mushroom?.name}
-        onClick={handleTakePhoto}
+        alt={mushroom?.name || "Mushroom"}
       />
       {mushroom && (
         <>
           <p>
-            <strong>Comment:</strong> {mushroom.comment}
+            <strong>Vitenskapelig navn:</strong> {mushroom.s_name}
           </p>
           <p>
-            <strong>Description:</strong> {mushroom.description}
+            <strong>Spiselighet(nsnf):</strong> {mushroom.nsnf_norm}
           </p>
+          {mushroom.comment && (
+            <p>
+              <strong>Kommentar:</strong> {mushroom.comment}
+            </p>
+          )}
           <p>
-            <strong>Edibility:</strong> {mushroom.nsnf_norm}
+            <strong>Beskrivelse:</strong> {mushroom.description}
           </p>
-          <p>
-            <strong>Scientific name:</strong> {mushroom.s_name}
-          </p>
+          {recipeComponent}
         </>
       )}
     </StyledWrapper>

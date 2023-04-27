@@ -5,6 +5,7 @@ import MushroomCard from "../../MushroomCard";
 import React, { useState, useEffect, useRef } from "react";
 import NoMushroomsFound from "./NoResultsFallback";
 import { fallback_loading } from "../../MushroomPredictionCard";
+import { useLocation } from "react-router-dom";
 
 const DEBOUNCE_DELAY = 500; // Adjust the debounce delay as needed
 const SearchPage: React.FC = () => {
@@ -15,6 +16,14 @@ const SearchPage: React.FC = () => {
     fallback_loading,
   ]);
   const searchTimer = useRef<number | null>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const myParamValue = queryParams.get("name");
+    setSearchText(myParamValue || "");
+    handleSearch(myParamValue || "");
+  }, []);
 
   const handleSearch = async (searchText: string) => {
     const results = await mushroomAPI.getMushroomsByName(searchText);
@@ -40,9 +49,6 @@ const SearchPage: React.FC = () => {
         clearTimeout(searchTimer.current);
       }
     };
-  }, []);
-  useEffect(() => {
-    handleSearch("");
   }, []);
 
   return (

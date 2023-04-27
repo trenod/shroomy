@@ -1,15 +1,11 @@
 import queryString from "query-string";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import {
-  IMusroom,
   IPrediction,
   IPredictionIcludingFallbackId,
-  NSNF_NORM,
 } from "../../../api/interfaces";
-import { mushroomAPI } from "../../../api/mushroomAPI";
 import MushroomPredictionCard from "../../MushroomPredictionCard";
-import MushroomPredictionSummary from "./MushroomPredictionSummary";
 import MushroomPredictionSummaryNew from "./MushroomPredictionSummaryNew";
 
 const PredictionPage: React.FC = () => {
@@ -18,7 +14,7 @@ const PredictionPage: React.FC = () => {
 
   return (
     <CardsWrapper>
-      <MushroomPredictionSummary predictions={predictions} />
+      {/*<MushroomPredictionSummary predictions={predictions} />*/}
       <MushroomPredictionSummaryNew predictions={predictions} />
       {predictions.map((prediction, index) => {
         if (prediction.predicted_id == null) {

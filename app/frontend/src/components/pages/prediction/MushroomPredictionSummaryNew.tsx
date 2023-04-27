@@ -10,6 +10,8 @@ import { mushroomAPI } from "../../../api/mushroomAPI";
 import { debugMushroom } from "../../../constants";
 import { hexToRgba, palette } from "../../../palette";
 import { StyledPredictionMushroomImg } from "../../StyledPredictionMushroomImg";
+import { StyledHeader } from "../../MushroomCard";
+import CommonMislabelsComponent from "./CommonMislclassifications";
 
 interface MushroomPredictionProps {
   predictions: IPrediction[];
@@ -46,9 +48,13 @@ const MushroomPredictionSummaryNew: React.FC<MushroomPredictionProps> = ({
     fetchData();
   }, []);
 
+  const predStrFromPred = (pred: IPrediction) => {
+    return Number(pred.probability * 100).toFixed(2);
+  };
+
   const SummaryObject = (obj: { prediction: IPrediction }) => {
     const mushroom = obj.prediction;
-    const predStr = Number(obj.prediction.probability * 100).toFixed(2);
+    const predStr = predStrFromPred(obj.prediction);
     const name =
       !!mushroom && !mushroom.name.includes("nes ikke i databasen") ? (
         <span>{mushroom.predicted_name}</span>
@@ -93,36 +99,42 @@ const MushroomPredictionSummaryNew: React.FC<MushroomPredictionProps> = ({
   return (
     <div>
       <StyledPredictionWrapper>
-        <div style={{ display: "flex" }}>
-          <div>
-            <StyledPredictionMushroomImg
-              src={currentImage}
-              alt={mushroom?.name || "Mushroom"}
-            />
-            <div style={{ display: "flex" }}>
-              {images.map((i, index) => {
-                return (
-                  <StyledPredictionMushroomImgSmall
-                    onClick={() => setCurrentImage(i)}
-                    focused={i == currentImage}
-                    key={index}
-                    src={i}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          <div style={{ width: "300", height: "250px", position: "relative" }}>
-            <div
-              style={{ fontSize: "20px", fontWeight: 600, marginLeft: "10px" }}
-            >
-              {"Prediksjoner"}
-            </div>
-            {predictions.map((p: any, index) => {
-              return <SummaryObject key={"psum" + index} prediction={p} />;
+        <div>
+          <StyledHeader>
+            {mushroom?.name || "Laster..."}{" "}
+            <span style={{ paddingLeft: "10px" }}>
+              {predStrFromPred(predictions[0])}
+            </span>
+            {`%`}
+          </StyledHeader>
+          <StyledPredictionMushroomImg
+            src={currentImage}
+            alt={mushroom?.name || "Mushroom"}
+          />
+          <div style={{ display: "flex" }}>
+            {images.map((i, index) => {
+              return (
+                <StyledPredictionMushroomImgSmall
+                  onClick={() => setCurrentImage(i)}
+                  focused={i == currentImage}
+                  key={index}
+                  src={i}
+                />
+              );
             })}
           </div>
         </div>
+        <div style={{ width: "300", height: "250px", position: "relative" }}>
+          <div
+            style={{ fontSize: "23px", fontWeight: 700, marginLeft: "14px" }}
+          >
+            {"Prediksjoner"}
+          </div>
+          {predictions.map((p: any, index) => {
+            return <SummaryObject key={"psum" + index} prediction={p} />;
+          })}
+        </div>
+        {mushroom && <CommonMislabelsComponent mushroom={mushroom} />}
       </StyledPredictionWrapper>
     </div>
   );
@@ -168,7 +180,7 @@ export const StyledPredictionMushroomImgSmall = styled.img<{
 export const StyledPredictionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 0px 15px 15px 15px;
   border-radius: 4px;
   border: 1px solid ${hexToRgba(palette.brown, 0.3)};
   box-shadow: 0 0 3px ${hexToRgba(palette.lightOrange, 0.3)};

@@ -17,23 +17,51 @@ export const getImageUrlsFromMushroom = (mushroom: IMusroom): string[] => {
 };
 
 const parseOrderedDictString = (str: string) => {
-  const validJson = str
-    .replace(/OrderedDict\(\[(.*?)\]\)/g, "{$1}")
-    .replace(/\(/g, "[")
-    .replace(/\)/g, "]")
-    .replace(/'/g, '"');
+  if (str == "['']") return [];
+  let objs: IMusroomBasic[] = [];
 
-  return JSON.parse(validJson);
+  let split = str.split("OrderedDict");
+  split.map((od, index) => {
+    if (index == 0) return null;
+    let obj: IMusroomBasic = {
+      name: "",
+      s_name: "",
+      image_urls: [],
+    };
+
+    const nameRegex = /'name', '(.+?)'/;
+    const nameMacth = od.match(nameRegex);
+    obj.name = nameMacth ? nameMacth[1] : "";
+
+    const s_nameRegex = /'s_name', '(.+?)'/;
+    const s_nameMacth = od.match(s_nameRegex);
+    obj.s_name = s_nameMacth ? s_nameMacth[1] : "";
+
+    const imageUrlRegex = /'image_url[s]', (\[.+?\])/;
+    const imageUrlMacth = od.match(imageUrlRegex);
+    let urls: string[] = [];
+
+    try {
+      let imgs = imageUrlMacth && imageUrlMacth[1].split(",");
+      imgs &&
+        imgs.map((img) =>
+          urls.push(img.replace("[", "").replace("]", "").replaceAll("'", ""))
+        );
+      obj.image_urls = urls;
+    } catch {
+      console.warn(
+        "couldn't parse image urls",
+        imageUrlMacth && "[" + imageUrlMacth[1] + "]",
+        imageUrlMacth && typeof imageUrlMacth[1]
+      );
+    }
+
+    objs.push(obj);
+  });
+  return objs;
 };
 
 export const getListMislabelFromMushroom = (mushroom: IMusroom) => {
   const input = parseOrderedDictString(mushroom.list_mislabel);
-  const jsObjects: IMusroomBasic[] = input.map((item: any) => {
-    const obj: { [x: string]: any } = {};
-    for (const [key, value] of Object.entries(item)) {
-      obj[key] = value;
-    }
-    return obj;
-  });
-  return jsObjects;
+  return input;
 };
