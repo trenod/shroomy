@@ -15,15 +15,15 @@ Including another URLconf
 """
 from rest_framework import routers
 from django.urls import path
-from mushroomIdentifyer.views import MushroomViewSet, search_mushrooms, predict_mushroom, predict_more_mushroom
+from mushroomIdentifyer.views import MushroomViewSet, search_mushrooms, predict_mushroom, create_mushroom
 
 router = routers.DefaultRouter()
 router.register(r'mushrooms', MushroomViewSet)
 
 urlpatterns = [
-    path('mushrooms/', MushroomViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('mushrooms/', MushroomViewSet.as_view({'get': 'list'})),
+    path('mushrooms/create/', create_mushroom, name='create_mushroom'),
     path('mushrooms/<int:pk>/', MushroomViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
     path('mushrooms/search/', search_mushrooms, name='search_mushrooms'),
-    path('mushrooms/predict/', predict_mushroom, name='predict_mushroom'),
-    path('mushrooms/predict_more/', predict_more_mushroom, name='predict_more_mushroom')
+    path('mushrooms/predict/', predict_mushroom, name='predict_mushroom')
 ]

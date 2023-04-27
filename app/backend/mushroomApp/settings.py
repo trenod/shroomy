@@ -12,23 +12,37 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 from dotenv import load_dotenv
 
 load_dotenv()
-
-DATABASES = {
-    'default': {
+print(sys.argv[1])
+if 'test' in sys.argv[1]:
+    DATABASES = {
+        'default': {
         'ENGINE': 'djongo',
         'CLIENT': {
-            'name': os.getenv('MONGO_DB_NAME'),
+            'name': os.getenv('MONGO_TEST_DB_NAME'),
             'host': os.getenv('MONGO_HOST'),
             'port': os.getenv('MONGO_PORT'),
             'username': os.getenv('MONGO_USERNAME'),
             'password': os.getenv('MONGO_PASSWORD'),
         }
     }
-}
-
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'CLIENT': {
+                'name': os.getenv('MONGO_DB_NAME'),
+                'host': os.getenv('MONGO_HOST'),
+                'port': os.getenv('MONGO_PORT'),
+                'username': os.getenv('MONGO_USERNAME'),
+                'password': os.getenv('MONGO_PASSWORD'),
+            }
+        }
+    }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
