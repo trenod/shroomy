@@ -4,16 +4,16 @@ services:
     build:
       context: ./backend
     command: gunicorn mushroomApp.wsgi --bind 0.0.0.0:8000
-    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/theapp.01:web
+    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/dev:web
     ports:
       - "8000:8000"
   frontend:
-    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/theapp.01:frontend
+    image: 698408480519.dkr.ecr.eu-north-1.amazonaws.com/dev:frontend
     build:
       context: ./frontend
       args:
-        REACT_APP_API_BASE_URL: http://13.50.15.63:8000
-        REACT_APP_FRONTEND_BASE_URL: http://13.50.15.63:3000
+        REACT_APP_API_BASE_URL: http://16.16.77.83:8000
+        REACT_APP_FRONTEND_BASE_URL: http://16.16.77.83:3000
     ports:
       - "3000:3000"
     volumes:

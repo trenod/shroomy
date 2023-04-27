@@ -1,6 +1,6 @@
-export const mushroomServerURL = "http://16.16.162.101:8000";
+export const mushroomServerURL = "http://16.16.77.83:8000";
 //export const mushroomServerURL = "http://localhost:8000";
-export const frontEndServerURL = "http://16.16.162.101:3000";
+export const frontEndServerURL = "http://16.16.77.83:3000";
 //export const frontEndServerURL = "http://localhost:3000";
 
 
