@@ -16,7 +16,7 @@ import sys
 from dotenv import load_dotenv
 
 load_dotenv()
-print(sys.argv[1])
+
 if 'test' in sys.argv[1]:
     DATABASES = {
         'default': {
