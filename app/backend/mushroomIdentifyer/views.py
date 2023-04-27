@@ -4,13 +4,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import MushroomSerializer
 from .models import Mushroom
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
 from fastai.vision.all import load_learner
 from django.db.models import Q
 import numpy as np
 import cv2
 
-learn = load_learner("./model/model_v2_convnext.pkl")
+learn = load_learner("./model/model_v1.pkl")
 labels = learn.dls.vocab
 
 # Create your views here.
@@ -20,6 +20,23 @@ class MushroomViewSet(viewsets.ModelViewSet):
     queryset = Mushroom.objects.all()
     serializer_class = MushroomSerializer
 
+
+@api_view(['POST'])
+def create_mushroom(request):
+    data = {
+        'name': request.data.get('name'),
+        's_name': request.data.get('s_name'),
+        'nsnf_norm': request.data.get('nsnf_norm'),
+        'comment': request.data.get('comment'),
+        'description': request.data.get('description'),
+        'recipe': request.data.get('recipe'),
+        'image_urls': request.data.get('image_urls'),
+        'list_mislabel': request.data.get('list_mislabel')
+    }
+    serializer = MushroomSerializer(data=data)  
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def search_mushrooms(request):
