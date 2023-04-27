@@ -30,5 +30,11 @@ jobs:
       run: npm install -g newman
 
     - name: Run Postman tests
-      run: newman run app/backend/DAT251.postman_collection.json --environment app/backend/.env
+      env:
+          MONGO_HOST: ${{ secrets.MONGO_HOST }}
+          MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME}}
+          MONGO_USERNAME: ${{ secrets.MONGO_USERNAME}}
+          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD}}
+          SECRET_KEY: ${{ secrets.SECRET_KEY}}
+      run: newman run app/backend/DAT251.postman_collection.json --environment env
 
