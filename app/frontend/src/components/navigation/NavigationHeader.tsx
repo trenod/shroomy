@@ -46,7 +46,7 @@ const NavigationHeader: React.FC = () => {
           <Link to="/">Home</Link>
           <Link to="/search">Search</Link>
           <Link to="/history">History</Link>
-          <Link to={DEBUG_predictionURLWithData}>Prediction_dev</Link>
+          {/*<Link to={DEBUG_predictionURLWithData}>Prediction_dev</Link>*/}
         </StyledLinkWrapper>
         <StyledLinkWrapperMobile className="linkWrapperMobile">
           <a id="burger" onClick={() => setExpand(!expand)}>
