@@ -43,7 +43,15 @@ jobs:
         python3 app/backend/manage.py migrate
 
     - name: Run server and Postman tests
+      env:
+        pythonLocation: /opt/hostedtoolcache/Python/3.8.16/x64
+        LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.8.16/x64/lib
+        MONGO_HOST: ${{ secrets.MONGO_HOST }}
+        MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME }}
+        MONGO_USERNAME: ${{ secrets.MONGO_USERNAME }}
+        MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
-        python3 app/backend/manage.py runserver > server.log 2>&1 &
+        python3 app/backend/manage.py runserver 0.0.0.0:8000 > server.log 2>&1 &
         sleep 15 # wait for server to start
         newman run app/backend/tests/DAT251.postman_collection.json || (cat server.log && exit 1)
