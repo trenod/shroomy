@@ -58,7 +58,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'http://ec2-16-16-77-83.eu-north-1.compute.amazonaws.com', '16.16.77.83','194.63.248.47', "localhost",'https//194.63.248.47']
+    'http://ec2-16-16-77-83.eu-north-1.compute.amazonaws.com', '16.16.77.83','194.63.248.47', "localhost",'https//194.63.248.47',"127.0.0.1"]
 
 
 # Application definition
