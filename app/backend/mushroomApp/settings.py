@@ -58,7 +58,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'http://ec2-16-16-77-83.eu-north-1.compute.amazonaws.com', '16.16.77.83', "localhost"]
+    'http://ec2-16-16-77-83.eu-north-1.compute.amazonaws.com', '16.16.77.83','194.63.248.47', "localhost",'https//194.63.248.47']
 
 
 # Application definition
@@ -96,6 +96,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://16.16.77.83',
     'http://localhost',
     'http://0.0.0.0',
+    'https://194.63.248.47'
 ]
 
 
