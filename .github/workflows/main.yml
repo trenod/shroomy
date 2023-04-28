@@ -33,11 +33,7 @@ jobs:
       env:
         pythonLocation: /opt/hostedtoolcache/Python/3.8.16/x64
         LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.8.16/x64/lib
-        MONGO_HOST: ${{ secrets.MONGO_HOST }}
         MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME }}
-        MONGO_USERNAME: ${{ secrets.MONGO_USERNAME }}
-        MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         echo $MONGO_HOST && echo $MONGO_DB_NAME && echo $MONGO_USERNAME && echo $MONGO_PASSWORD && echo $SECRET_KEY
         python3 app/backend/manage.py migrate
