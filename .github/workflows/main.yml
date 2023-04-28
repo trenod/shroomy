@@ -30,14 +30,14 @@ jobs:
       run: npm install -g newman
 
     - name: Run backend
-      run: python3 app/backend/manage.py runserver
+      run: |
+        export MONGO_HOST= ${{ secrets.MONGO_HOST }}
+        export MONGO_DB_NAME= ${{ secrets.MONGO_DB_NAME}}
+        export MONGO_USERNAME= ${{ secrets.MONGO_USERNAME}}
+        export MONGO_PASSWORD= ${{ secrets.MONGO_PASSWORD}}
+        export SECRET_KEY= ${{ secrets.SECRET_KEY}}
+        python3 app/backend/manage.py runserver
 
     - name: Run Postman tests
-      env:
-          MONGO_HOST: ${{ secrets.MONGO_HOST }}
-          MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME}}
-          MONGO_USERNAME: ${{ secrets.MONGO_USERNAME}}
-          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD}}
-          SECRET_KEY: ${{ secrets.SECRET_KEY}}
       run: newman run app/backend/tests/DAT251.postman_collection.json
 
