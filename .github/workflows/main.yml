@@ -52,7 +52,7 @@ jobs:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         mkdir -p app/backend/tests
-        cp traktkantarell.jpeg app/backend/tests/traktkantarell.jpeg
+        cp app/backend/tests/traktkantarell.jpeg app/backend/tests/traktkantarell.jpeg
         python3 app/backend/manage.py runserver 0.0.0.0:8000 > server.log 2>&1 &
         sleep 15 # wait for server to start
         newman run app/backend/tests/DAT251.postman_collection.json || (cat server.log && exit 1)
