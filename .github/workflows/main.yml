@@ -31,11 +31,11 @@ jobs:
 
     - name: Run backend
       run: |
-        export MONGO_HOST= ${{ secrets.MONGO_HOST }}
-        export MONGO_DB_NAME= ${{ secrets.MONGO_DB_NAME}}
-        export MONGO_USERNAME= ${{ secrets.MONGO_USERNAME}}
-        export MONGO_PASSWORD= ${{ secrets.MONGO_PASSWORD}}
-        export SECRET_KEY= ${{ secrets.SECRET_KEY}}
+        export MONGO_HOST=$MONGO_HOST
+        export MONGO_DB_NAME=$MONGO_DB_NAME
+        export MONGO_USERNAME=$MONGO_USERNAME
+        export MONGO_PASSWORD=$MONGO_PASSWORD
+        export SECRET_KEY=$SECRET_KEY
         python3 app/backend/manage.py runserver
 
     - name: Run Postman tests
