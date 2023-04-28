@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "26a82850-d9f5-4f49-8f4e-10b41c237d5d",
+		"name": "DAT251",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23427635",
+		"_collection_link": "https://martian-sunset-16143.postman.co/workspace/DAT251-Workspace~dd4bb663-caba-4c94-a481-0067baeeaea3/collection/23427635-26a82850-d9f5-4f49-8f4e-10b41c237d5d?action=share&creator=23427635&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "get all mushrooms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/mushrooms/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"mushrooms",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search mushroom by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check that the response status code is 200",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Check that the response is an array",
+							"pm.test(\"Response is an array\", function() {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"});",
+							"",
+							"// Check that the response array is not empty",
+							"pm.test(\"Response array is not empty\", function() {",
+							"    pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/mushrooms/search/?name=fluesopp",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"mushrooms",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "fluesopp"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "predict from image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check that the response status code is 200",
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Check that the response is an array",
+							"pm.test(\"Response is an array\", function() {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"});",
+							"",
+							"// Check that the response array has length of 5",
+							"pm.test(\"Response array has length of 5\", function() {",
+							"    pm.expect(pm.response.json()).to.have.lengthOf(5);",
+							"});",
+							"",
+							"// Check that each element in the response array is a JSON object",
+							"pm.test(\"Each element in response array is a JSON object\", function() {",
+							"    var responseArray = pm.response.json();",
+							"    pm.expect(responseArray).to.be.an('array').that.is.not.empty;",
+							"    responseArray.forEach(function(element) {",
+							"        pm.expect(element).to.be.an('object');",
+							"    });",
+							"});",
+							"",
+							"// Check that each JSON object in the response has expected properties",
+							"pm.test(\"Each JSON object in response has expected properties\", function() {",
+							"    var responseArray = pm.response.json();",
+							"    responseArray.forEach(function(element) {",
+							"        pm.expect(element).to.have.property('predicted_id');",
+							"        pm.expect(element).to.have.property('predicted_name');",
+							"        pm.expect(element).to.have.property('name');",
+							"        pm.expect(element).to.have.property('probability');",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRFToken",
+						"value": "scNYw4KZUHpt4wFhGXarU64CmcgcZMIw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "traktkantarell.jpeg"
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/mushrooms/predict/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"mushrooms",
+						"predict",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
