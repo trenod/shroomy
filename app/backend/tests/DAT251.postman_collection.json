@@ -149,7 +149,7 @@
 				"body": {
 					"mode": "file",
 					"file": {
-						"src": "traktkantarell.jpeg"
+						"src": "app/backend/tests/traktkantarell.jpeg"
 					}
 				},
 				"url": {

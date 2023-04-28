@@ -20,6 +20,9 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
+    - name: Copy image file to the workspace
+      run: |
+        cp app/backend/tests/traktkantarell.jpeg .
 
     - name: Install dependencies
       run: |
