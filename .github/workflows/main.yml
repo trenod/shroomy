@@ -36,6 +36,7 @@ jobs:
           MONGO_USERNAME: ${{ secrets.MONGO_USERNAME}}
           MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD}}
           SECRET_KEY: ${{ secrets.SECRET_KEY}}
+      run: echo $MONGO_HOST && echo $MONGO_DB_NAME && echo $MONGO_USERNAME && echo $MONGO_PASSWORD && echo $SECRET_KEY && python3 app/backend/manage.py migrate
       run: python3 app/backend/manage.py runserver
 
 
