@@ -14,7 +14,7 @@ import os
 if os.path.isfile("./model/model_v2_convnext.pkl"):
     learn = load_learner("./model/model_v2_convnext.pkl")
 else:
-    learn = load_learner("./model/model_v1.pkl")
+    learn = load_learner("app/backend/model/model_v1.pkl")
 
 labels = learn.dls.vocab
 
