@@ -35,11 +35,11 @@ else:
         'default': {
             'ENGINE': 'djongo',
             'CLIENT': {
-                'name': os.getenv('MONGO_DB_NAME'),
+                'name': str(os.getenv('MONGO_DB_NAME')),
                 'host': str(os.getenv('MONGO_HOST')),
-                'port': os.getenv('MONGO_PORT'),
-                'username': os.getenv('MONGO_USERNAME'),
-                'password': os.getenv('MONGO_PASSWORD'),
+                'port': str(os.getenv('MONGO_PORT')),
+                'username': str(os.getenv('MONGO_USERNAME')),
+                'password': str(os.getenv('MONGO_PASSWORD')),
             }
         }
     }
@@ -52,7 +52,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
