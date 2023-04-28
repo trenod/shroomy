@@ -44,5 +44,8 @@ jobs:
     - name: Run backend
       run: python3 app/backend/manage.py runserver &
 
+    - name: Wait for server to start
+      run: sleep 10
+
     - name: Run Postman tests
       run: newman run app/backend/tests/DAT251.postman_collection.json
