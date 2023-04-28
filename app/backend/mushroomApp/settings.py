@@ -37,7 +37,7 @@ else:
             'CLIENT': {
                 'name': str(os.getenv('MONGO_DB_NAME')),
                 'host': str(os.getenv('MONGO_HOST')),
-                'port': str(os.getenv('MONGO_PORT')),
+                'port':     os.getenv('MONGO_PORT'),
                 'username': str(os.getenv('MONGO_USERNAME')),
                 'password': str(os.getenv('MONGO_PASSWORD')),
             }
