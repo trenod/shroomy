@@ -30,13 +30,7 @@ jobs:
       run: npm install -g newman
 
     - name: Run backend
-      run: |
-        export MONGO_HOST=$MONGO_HOST
-        export MONGO_DB_NAME=$MONGO_DB_NAME
-        export MONGO_USERNAME=$MONGO_USERNAME
-        export MONGO_PASSWORD=$MONGO_PASSWORD
-        export SECRET_KEY=$SECRET_KEY
-        python3 app/backend/manage.py runserver
+      run: python3 app/backend/manage.py runserver
 
     - name: Run Postman tests
       run: newman run app/backend/tests/DAT251.postman_collection.json
