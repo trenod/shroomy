@@ -9,6 +9,9 @@ shrooms
 model_v2_convnext.pkl
 app/backend/shrooms/*
 .env
+
+/Users/jonashammerseth/Desktop/shroomy520423894/shroomy/.DS_Store
+
 # Distribution / packaging
 .Python
 build/
