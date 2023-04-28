@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 shrooms
-model/model_v2_convnext.pkl
+model_v2_convnext.pkl
 app/backend/shrooms/*
 .env
 # Distribution / packaging

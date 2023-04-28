@@ -10,7 +10,7 @@ from django.db.models import Q
 import numpy as np
 import cv2
 
-learn = load_learner("./model/model_v1.pkl")
+learn = load_learner("./model/model_v2_convnext.pkl")
 labels = learn.dls.vocab
 
 # Create your views here.
