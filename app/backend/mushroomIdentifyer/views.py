@@ -9,8 +9,13 @@ from fastai.vision.all import load_learner
 from django.db.models import Q
 import numpy as np
 import cv2
+import os
 
-learn = load_learner("./model/model_v2_convnext.pkl")
+if os.path.isfile("./model/model_v2_convnext.pkl"):
+    learn = load_learner("./model/model_v2_convnext.pkl")
+else:
+    learn = load_learner("./model/model_v1.pkl")
+
 labels = learn.dls.vocab
 
 # Create your views here.
